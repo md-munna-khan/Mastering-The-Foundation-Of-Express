@@ -4,6 +4,7 @@
   "description": "- fast very fast\r - 2 unopinionated  so what is opinionated?\r ans opinion as like redux,nextjs there who is system he declired i mean rules and regulation you must be follow there rules and system\r and unopinionated you just follow our function and you can do your own pattern and structure it as your wish no problem\r - 3\r ![alt text](image.png)\r ![alt text](image-1.png)",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon ./dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +20,7 @@
   "homepage": "https://github.com/md-munna-khan/Mastering-The-Foundation-Of-Express#readme",
   "devDependencies": {
     "@types/express": "^5.0.2",
+    "nodemon": "^3.1.10",
     "typescript": "^5.8.3"
   },
   "dependencies": {

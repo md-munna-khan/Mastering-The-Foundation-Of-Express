@@ -20,3 +20,42 @@ when we are install package there are 2 types====>
 
 ![alt text](image-3.png)
 ![alt text](image-4.png)
+
+## 14-3 What is parsers, request and response object
+- watching change
+![alt text](image-5.png)
+- not need for every time write folder name code
+![alt text](image-6.png)
+- not need write npm run dev just write npm start 
+because start are the by default keyword
+![alt text](image-7.png)
+
+Sure!
+
+✅ What does app.use(express.json()); do in Express?
+It is a middleware that tells Express:
+
+“If a request comes in with JSON data (like from a frontend or Postman), parse that JSON and put it into req.body.”
+
+🔍 Without it:
+```ts
+app.post("/user", (req, res) => {
+  console.log(req.body); // ❌ undefined
+});
+```
+Because Express doesn’t know how to read the body by default.
+
+✅ With express.json():
+```ts
+app.use(express.json()); // middleware to parse JSON
+```
+```ts
+app.post("/user", (req, res) => {
+  console.log(req.body); // ✅ { name: "Munna", email: "example@gmail.com" }
+  res.send("User received");
+});
+
+📌 Why is it needed?
+It parses incoming requests with Content-Type: application/json.
+
+It's required when you send data using POST, PUT, or PATCH from tools like Postman or a frontend app.
