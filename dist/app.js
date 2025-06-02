@@ -4,28 +4,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const fs_1 = __importDefault(require("fs"));
-const path_1 = __importDefault(require("path"));
+const todos_route_1 = require("./app/todos/todos.route");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-const filePath = path_1.default.join(__dirname, "../db/todo.json");
+const userRouter = express_1.default.Router();
+app.use("/todos", todos_route_1.todosRouter);
+app.use("/users", userRouter);
 app.get("/", (req, res) => {
     res.send("welcome to todos apps");
 });
-app.get("/todos", (req, res) => {
-    const data = fs_1.default.readFileSync(filePath, { encoding: "utf-8" });
-    console.log(data);
-    res.json(data);
-});
-app.post("/todos/create-todo", (req, res) => {
-    const { title, body } = req.body;
-    console.log(title, body);
-    res.send("welcome to todos apps");
-});
+// [app]-[express.json()]-[todosRouter]-[Root Route "/"]-[GET "/todos"]-[POST Create ToDo]
+//[todosRouter]-[get all todos /todos GET]-[create todo /todos/create-todo POST todo]
 exports.default = app;
 /**
  * Basic File structure
  * server - server handling like - starting, closing error handling of server. only related to server
  * app file - routing handle, middleware, route related error
  * app folder - app business logic handling like create read update delete, database related works
- */ 
+ */

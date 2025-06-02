@@ -54,8 +54,108 @@ app.post("/user", (req, res) => {
   console.log(req.body); // ✅ { name: "Munna", email: "example@gmail.com" }
   res.send("User received");
 });
-
+```
 📌 Why is it needed?
 It parses incoming requests with Content-Type: application/json.
 
 It's required when you send data using POST, PUT, or PATCH from tools like Postman or a frontend app.
+
+## 14-4 What is Params & Queries
+ must be need tsc -w watch mode on 
+![alt text](image-8.png)
+![alt text](image-9.png)
+if you are need multiple dynamic params add in after get
+```ts
+app.get('/todos/:title/:body', (req: Request, res: Response) => {
+  console.log("from query",req.query)
+  console.log("from params",req.params)
+// console.log(req.params)
+   const data = fs.readFileSync(filePath, { encoding: "utf-8" });
+  //  console.log(data)
+ res.send("welcome to todos apps");
+});
+```
+![alt text](image-10.png)
+![alt text](image-11.png)
+
+- when our need specific any one id we are use id
+- and when our need multiple specific id we use params
+
+http://localhost:5000/todos/express/learning prisma?title=prisma&body= learning prisma
+
+- when we are declire params  http://localhost:5000/todos/express/ after / slash
+- and query time we declired name and value
+
+![alt text](image-12.png)
+
+## 14-5 Routing in Express
+when we are used routing
+and call in postmen http://localhost:5000/todos/all-todos he work top to bottom first of full when he 
+```ts
+app.use("/todos",todosRouter)
+``` 
+then call 
+```ts 
+todosRouter.get("/all-todos", (req: Request, res: Response) => {
+  const data = fs.readFileSync(filePath, { encoding: "utf-8" });
+  //  console.log(data)
+  res.json({
+    message: "message from todos route",
+    data
+  });
+});
+```
+he call routing not got to the second app.get ❌❌
+```ts 
+app.get("/todos/all-todos", (req: Request, res: Response) => {
+  // console.log(req.params)
+  const data = fs.readFileSync(filePath, { encoding: "utf-8" });
+  //  console.log(data)
+  res.send("welcome to todos apps");
+});
+```
+
+![alt text](image-14.png)
+![alt text](image-13.png)
+
+## 14-6 Organizing Codes & Splitting The Routes
+
+```ts
+
+import express, {  Request, Response } from "express";
+import fs from "fs";
+import path from "path";
+export const todosRouter = express.Router();
+const filePath = path.join(__dirname, "../../../db/todo.json");
+
+
+todosRouter.get("/", (req: Request, res: Response) => {
+  const data = fs.readFileSync(filePath, { encoding: "utf-8" });
+  //  console.log(data)
+  res.json({
+    message: "message from todos route",
+    data
+  });
+});
+
+todosRouter.post("/create-todo", (req: Request, res: Response) => {
+  const { title, body } = req.body;
+  // console.log(title,body)
+  res.send("create from router");
+});
+todosRouter.get("/title", (req: Request, res: Response) => {
+  const { title, body } = req.body;
+  // console.log(title,body)
+  res.send("create from router");
+});
+todosRouter.put("/update-todo/:title", (req: Request, res: Response) => {
+  const { title, body } = req.body;
+  // console.log(title,body)
+  res.send("create from router");
+});
+todosRouter.put("/delete-todo/:title", (req: Request, res: Response) => {
+  const { title, body } = req.body;
+  // console.log(title,body)
+  res.send("create from router");
+});
+```
