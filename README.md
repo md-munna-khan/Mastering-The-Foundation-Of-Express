@@ -54,8 +54,36 @@ app.post("/user", (req, res) => {
   console.log(req.body); // ✅ { name: "Munna", email: "example@gmail.com" }
   res.send("User received");
 });
-
+```
 📌 Why is it needed?
 It parses incoming requests with Content-Type: application/json.
 
 It's required when you send data using POST, PUT, or PATCH from tools like Postman or a frontend app.
+
+## 14-4 What is Params & Queries
+ must be need tsc -w watch mode on 
+![alt text](image-8.png)
+![alt text](image-9.png)
+if you are need multiple dynamic params add in after get
+```ts
+app.get('/todos/:title/:body', (req: Request, res: Response) => {
+  console.log("from query",req.query)
+  console.log("from params",req.params)
+// console.log(req.params)
+   const data = fs.readFileSync(filePath, { encoding: "utf-8" });
+  //  console.log(data)
+ res.send("welcome to todos apps");
+});
+```
+![alt text](image-10.png)
+![alt text](image-11.png)
+
+- when our need specific any one id we are use id
+- and when our need multiple specific id we use params
+
+http://localhost:5000/todos/express/learning prisma?title=prisma&body= learning prisma
+
+- when we are declire params  http://localhost:5000/todos/express/ after / slash
+- and query time we declired name and value
+
+![alt text](image-12.png)

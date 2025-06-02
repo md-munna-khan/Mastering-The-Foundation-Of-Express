@@ -11,15 +11,18 @@ app.get("/", (req: Request, res: Response) => {
   res.send("welcome to todos apps");
 });
 
-app.get("/todos", (req: Request, res: Response) => {
+app.get('/todos/:title/:body', (req: Request, res: Response) => {
+  console.log("from query",req.query)
+  console.log("from params",req.params)
+// console.log(req.params)
    const data = fs.readFileSync(filePath, { encoding: "utf-8" });
-   console.log(data)
-  res.json(data)
+  //  console.log(data)
+ res.send("welcome to todos apps");
 });
 
 app.post("/todos/create-todo", (req: Request, res: Response) => {
 const {title,body}= req.body;
-console.log(title,body)
+// console.log(title,body)
   res.send("welcome to todos apps");
 });
 
