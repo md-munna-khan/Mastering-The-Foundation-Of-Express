@@ -1,38 +1,21 @@
 import express, { Application, Request, Response } from "express";
-import fs from "fs";
-import path from "path";
+
+import { todosRouter } from "./app/todos/todos.route";
 const app: Application = express();
 
 app.use(express.json());
-const todosRouter = express.Router();
+
+const userRouter=express.Router()
 app.use("/todos",todosRouter)
+app.use("/users",userRouter)
 
-todosRouter.get("/all-todos", (req: Request, res: Response) => {
-  const data = fs.readFileSync(filePath, { encoding: "utf-8" });
-  //  console.log(data)
-  res.json({
-    message: "message from todos route",
-    data
-  });
-});
 
-const filePath = path.join(__dirname, "../db/todo.json");
 app.get("/", (req: Request, res: Response) => {
   res.send("welcome to todos apps");
 });
 
-app.get("/todos/all-todos", (req: Request, res: Response) => {
-  // console.log(req.params)
-  const data = fs.readFileSync(filePath, { encoding: "utf-8" });
-  //  console.log(data)
-  res.send("welcome to todos apps");
-});
-
-app.post("/todos/create-todo", (req: Request, res: Response) => {
-  const { title, body } = req.body;
-  // console.log(title,body)
-  res.send("welcome to todos apps");
-});
+// [app]-[express.json()]-[todosRouter]-[Root Route "/"]-[GET "/todos"]-[POST Create ToDo]
+//[todosRouter]-[get all todos /todos GET]-[create todo /todos/create-todo POST todo]
 
 export default app;
 
