@@ -8,13 +8,21 @@ const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
+const todosRouter = express_1.default.Router();
+app.use("/todos", todosRouter);
+todosRouter.get("/all-todos", (req, res) => {
+    const data = fs_1.default.readFileSync(filePath, { encoding: "utf-8" });
+    //  console.log(data)
+    res.json({
+        message: "message from todos route",
+        data
+    });
+});
 const filePath = path_1.default.join(__dirname, "../db/todo.json");
 app.get("/", (req, res) => {
     res.send("welcome to todos apps");
 });
-app.get('/todos/:title/:body', (req, res) => {
-    console.log("from query", req.query);
-    console.log("from params", req.params);
+app.get("/todos/all-todos", (req, res) => {
     // console.log(req.params)
     const data = fs_1.default.readFileSync(filePath, { encoding: "utf-8" });
     //  console.log(data)
@@ -31,4 +39,4 @@ exports.default = app;
  * server - server handling like - starting, closing error handling of server. only related to server
  * app file - routing handle, middleware, route related error
  * app folder - app business logic handling like create read update delete, database related works
- */ 
+ */

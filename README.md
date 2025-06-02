@@ -87,3 +87,33 @@ http://localhost:5000/todos/express/learning prisma?title=prisma&body= learning 
 - and query time we declired name and value
 
 ![alt text](image-12.png)
+
+## 14-5 Routing in Express
+when we are used routing
+and call in postmen http://localhost:5000/todos/all-todos he work top to bottom first of full when he 
+```ts
+app.use("/todos",todosRouter)
+``` 
+then call 
+```ts 
+todosRouter.get("/all-todos", (req: Request, res: Response) => {
+  const data = fs.readFileSync(filePath, { encoding: "utf-8" });
+  //  console.log(data)
+  res.json({
+    message: "message from todos route",
+    data
+  });
+});
+```
+he call routing not got to the second app.get ❌❌
+```ts 
+app.get("/todos/all-todos", (req: Request, res: Response) => {
+  // console.log(req.params)
+  const data = fs.readFileSync(filePath, { encoding: "utf-8" });
+  //  console.log(data)
+  res.send("welcome to todos apps");
+});
+```
+
+![alt text](image-14.png)
+![alt text](image-13.png)
