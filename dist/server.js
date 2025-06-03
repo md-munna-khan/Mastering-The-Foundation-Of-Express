@@ -12,27 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongodb_1 = require("mongodb");
 const app_1 = __importDefault(require("./app"));
+const mongodb_1 = require("./app/config/mongodb");
 let server;
 const port = 5000;
-const uri = "mongodb+srv://mongodb:mongodb@cluster0.gamza.mongodb.net/todosDB?retryWrites=true&w=majority&appName=Cluster0";
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new mongodb_1.MongoClient(uri, {
-    serverApi: {
-        version: mongodb_1.ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-    }
-});
 const bootstrap = () => __awaiter(void 0, void 0, void 0, function* () {
     // Connect the client to the server	(optional starting in v4.7)
-    yield client.connect();
-    // const db = await client.db("todosDB");
-    //  const collection=await db.collection("todos").insertOne({
-    //   title:"Mongodb",
-    //   body:"Mongodb"
-    //  })
+    yield mongodb_1.client.connect();
     server = app_1.default.listen(port, () => {
         console.log(`Example app listening on port ${port}`);
     });
